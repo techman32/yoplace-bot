@@ -288,6 +288,12 @@ bot.on('callback_query', async ctx => {
                 await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.jpg`, {
                     caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'cafe'}]
+                        ],
+                        resize_keyboard: true
+                    }
                 })
                 break
             case 'sangrita':
@@ -295,6 +301,12 @@ bot.on('callback_query', async ctx => {
                 await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.jpg`, {
                     caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'cafe'}]
+                        ],
+                        resize_keyboard: true
+                    }
                 })
                 break
             case 'frendi':
@@ -302,6 +314,12 @@ bot.on('callback_query', async ctx => {
                 await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.webp`, {
                     caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'cafe'}]
+                        ],
+                        resize_keyboard: true
+                    }
                 })
                 break
             case 'malChikago':
@@ -309,6 +327,12 @@ bot.on('callback_query', async ctx => {
                 await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.webp`, {
                     caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'cafe'}]
+                        ],
+                        resize_keyboard: true
+                    }
                 })
                 break
             case 'monTresor':
@@ -316,6 +340,12 @@ bot.on('callback_query', async ctx => {
                 await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
                     caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'restaurants'}]
+                        ],
+                        resize_keyboard: true
+                    }
                 })
                 break
             case 'gosti':
@@ -323,6 +353,12 @@ bot.on('callback_query', async ctx => {
                 await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
                     caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'restaurants'}]
+                        ],
+                        resize_keyboard: true
+                    }
                 })
                 break
             case 'mullerHall':
@@ -330,6 +366,12 @@ bot.on('callback_query', async ctx => {
                 await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
                     caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'restaurants'}]
+                        ],
+                        resize_keyboard: true
+                    }
                 })
                 break
         }
