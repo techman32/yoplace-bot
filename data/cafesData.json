@@ -4,7 +4,7 @@
     "name": "ШКАФ",
     "rating": "4.7/5.0",
     "address": "Бульвар Чайвана, 32",
-    "geoPosition": "56.634934, 47.898716",
+    "geoPosition": "https://yandex.ru/maps/org/118552107871",
     "timetable": "Ежедневно c 08:00 до 22:00"
   },
   {
@@ -12,23 +12,23 @@
     "name": "Сангрита",
     "rating": "4.9/5.0",
     "address": "Бульвар Чайвана, 36",
-    "geoPosition": "56.635203, 47.897201",
+    "geoPosition": "https://yandex.ru/maps/org/198492558206",
     "timetable": "Ежедневно с 12:00 до 23:00"
   },
   {
     "id": "frendi",
     "name": "Гастропаб ФрендЫ",
     "rating": "4.4/5.0",
-    "address": "улица Советская, 120",
-    "geoPosition": "56.635414, 47.897528",
+    "address": "Советская, 120",
+    "geoPosition": "https://yandex.ru/maps/org/209455233414",
     "timetable": "Пн-Пт: 11:00 - 00:00\nСб-Вс: 12:00 - 00:00"
   },
   {
     "id": "malChikago",
     "name": "Маленькое Чикаго",
     "rating": "4.4/5.0",
-    "address": "улица Гоголя, 12",
-    "geoPosition": "56.630700, 47.894625",
+    "address": "Гоголя, 12",
+    "geoPosition": "https://yandex.ru/maps/org/193050732833",
     "timetable": "Пн-Сб: 09:00 - 23:00\nВс: 12:00 - 23:00"
   }
 ]

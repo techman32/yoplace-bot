@@ -172,7 +172,7 @@ bot.on('callback_query', async ctx => {
                 break
             case 'history':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Интересная информация об истории города')
+                await bot.sendMessage(ctx.message.chat.id, 'Интересная информаци об истории города')
                 break
             case 'culture':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -309,7 +309,7 @@ bot.on('callback_query', async ctx => {
             case 'amaksCityHotel':
             case 'revizor':
             case 'nikitin':
-                await updateCards(ctx, 'hotels', hotelsInfo, hotels)
+                await updateCards(ctx, 'hotels', hotelsInfo, hotels);
                 break
 
             //hostels
@@ -343,5 +343,5 @@ bot.on('callback_query', async ctx => {
 })
 
 function getDescription(id, data) {
-    return `\n${data.map(c => c.name)}\nАдрес: ${data.map(c => c.address)}\nРейтинг: ${data.map(c => c.rating)}\nМестоположение: ${data.map(c => c.geoPosition)}\nГрафик работы: ${data.map(c => c.timetable)}`
+    return `\n<strong>«${data.map(c => c.name)}»</strong>\n\n📍 <u>Адрес:</u> ${data.map(c => c.address)}\n⭐️ <u>Рейтинг:</u> ${data.map(c => c.rating)}\n⏰ <u>График работы:</u>\n${data.map(c => c.timetable)}\n\nЯ.Карты: <a href="${data.map(c => c.geoPosition)}">посмотреть</a>`
 }

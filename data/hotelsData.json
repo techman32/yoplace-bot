@@ -3,32 +3,32 @@
     "id": "firstTrain",
     "name": "Первый Поезд",
     "rating": "4.9/5.0",
-    "address": "улица Деповская, 20",
-    "geoPosition": "56.620940, 47.878807",
+    "address": "Деповская, 20",
+    "geoPosition": "https://yandex.ru/maps/org/19527864413",
     "timetable": "Круглосуточно"
   },
   {
     "id": "amaksCityHotel",
     "name": "АМАКС Сити-отель",
     "rating": "4.2/5.0",
-    "address": "улица Карла Маркса, 109",
-    "geoPosition": "56.622550, 47.889540",
+    "address": "Карла Маркса, 109",
+    "geoPosition": "https://yandex.ru/maps/org/1068793847",
     "timetable": "Круглосуточно"
   },
   {
     "id": "revizor",
     "name": "Ревизоръ",
     "rating": "4.9/5.0",
-    "address": "улица Гоголя, 2",
-    "geoPosition": "56.629990, 47.897985",
+    "address": "Гоголя, 2",
+    "geoPosition": "https://yandex.ru/maps/org/1802598642",
     "timetable": "Круглосуточно"
   },
   {
     "id": "nikitin",
     "name": "Никитин",
     "rating": "5.0/5.0",
-    "address": "бульвар Победы, 37",
-    "geoPosition": "56.639208, 47.872235",
+    "address": "Бульвар Победы, 37",
+    "geoPosition": "https://yandex.ru/maps/org/116196542233",
     "timetable": "Круглосуточно"
   }
 ]
