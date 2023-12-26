@@ -85,4 +85,55 @@ const hostelsInfo = {
     }
 }
 
-module.exports = {hotelsInfo, restaurantsInfo, cafesInfo, hostelsInfo}
+const museumsInfo = {
+    'evseev': {
+        id: 'evseev',
+        image: 'evseev.webp',
+        buttonText: 'Назад'
+    },
+    'nationalGallery': {
+        id: 'nationalGallery',
+        image: 'nationalGallery.webp',
+        buttonText: 'Назад'
+    },
+    'republicGallery': {
+        id: 'republicGallery',
+        image: 'republicGallery.webp',
+        buttonText: 'Назад'
+    },
+    'cheese': {
+        id: 'cheese',
+        image: 'cheese.webp',
+        buttonText: 'Назад'
+    }
+}
+
+const theatersInfo = {
+    'shketan': {
+        id: 'shketan',
+        image: 'shketan.webp',
+        buttonText: 'Назад'
+    },
+    'junZritel': {
+        id: 'junZritel',
+        image: 'junZritel.webp',
+        buttonText: 'Назад'
+    },
+    'sapaev': {
+        id: 'sapaev',
+        image: 'sapaev.webp',
+        buttonText: 'Назад'
+    },
+    'kukly': {
+        id: 'kukly',
+        image: 'kukly.webp',
+        buttonText: 'Назад'
+    },
+    'konstantinov': {
+        id: 'konstantinov',
+        image: 'konstantinov.webp',
+        buttonText: 'Назад'
+    }
+}
+
+module.exports = {hotelsInfo, restaurantsInfo, cafesInfo, hostelsInfo, museumsInfo, theatersInfo}

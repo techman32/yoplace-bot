@@ -1,7 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
-const {hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo} = require("./data/typesInfo");
+const {
+        hotelsInfo,
+        hostelsInfo,
+        restaurantsInfo,
+        cafesInfo,
+        museumsInfo,
+        theatersInfo,
+
+      } = require('./data/typesInfo');
 const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
 
 const bot = new TelegramBot(TOKEN, {
@@ -21,9 +29,11 @@ const cafes = readJsonFile('cafesData.json')
 const restaurants = readJsonFile('restaurantsData.json')
 const hotels = readJsonFile('hotelsData.json')
 const hostels = readJsonFile('hostelsData.json')
+const museums = readJsonFile('museumsData.json')
+const theaters = readJsonFile('theatersData.json')
 
 async function updateCards(ctx, cardType, cardsInfo, cardArray) {
-    const card = cardsInfo[ctx.data];
+    const card = cardsInfo[ctx.data]
     await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
     await bot.sendPhoto(ctx.message.chat.id, `./images/${cardType}/${card.image}`, {
         caption: getDescription(card.id, cardArray.filter(c => c.id === card.id)),
@@ -162,7 +172,7 @@ bot.on('callback_query', async ctx => {
                 break
             case 'history':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Интересная информаци об истории города')
+                await bot.sendMessage(ctx.message.chat.id, 'Интересная информация об истории города')
                 break
             case 'culture':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -226,11 +236,25 @@ bot.on('callback_query', async ctx => {
                 break
             case 'museums':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать музеи')
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите музей', {
+                    reply_markup: {
+                        inline_keyboard: museums.map(c => [{
+                            text: c.name, callback_data: c.id
+                        }]),
+                        resize_keyboard: true
+                    }
+                })
                 break
             case 'theaters':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать театры')
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите театр', {
+                    reply_markup: {
+                        inline_keyboard: theaters.map(c => [{
+                            text: c.name, callback_data: c.id
+                        }]),
+                        resize_keyboard: true
+                    }
+                })
                 break
             case 'parks':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -270,14 +294,14 @@ bot.on('callback_query', async ctx => {
             case 'sangrita':
             case 'frendi':
             case 'malChikago':
-                await updateCards(ctx, 'cafes', cafesInfo, cafes);
+                await updateCards(ctx, 'cafes', cafesInfo, cafes)
                 break
 
             //restaurants
             case 'monTresor':
             case 'gosti':
             case 'mullerHall':
-                await updateCards(ctx, 'restaurants', restaurantsInfo, restaurants);
+                await updateCards(ctx, 'restaurants', restaurantsInfo, restaurants)
                 break
 
             //hotels
@@ -285,7 +309,7 @@ bot.on('callback_query', async ctx => {
             case 'amaksCityHotel':
             case 'revizor':
             case 'nikitin':
-                await updateCards(ctx, 'hotels', hotelsInfo, hotels);
+                await updateCards(ctx, 'hotels', hotelsInfo, hotels)
                 break
 
             //hostels
@@ -293,7 +317,24 @@ bot.on('callback_query', async ctx => {
             case 'virginia':
             case 'flatLuxe':
             case 'rgard':
-                await updateCards(ctx, 'hostels', hostelsInfo, hostels);
+                await updateCards(ctx, 'hostels', hostelsInfo, hostels)
+                break
+
+            //museums
+            case 'evseev':
+            case 'nationalGallery':
+            case 'republicGallery':
+            case 'cheese':
+                await updateCards(ctx, 'museums', museumsInfo, museums)
+                break
+
+            //theaters
+            case 'shketan':
+            case 'junZritel':
+            case 'sapaev':
+            case 'kukly':
+            case 'konstantinov':
+                await updateCards(ctx, 'theaters', theatersInfo, theaters)
                 break
         }
     } catch (error) {
