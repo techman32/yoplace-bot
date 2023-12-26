@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
 const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
 
@@ -8,67 +10,15 @@ const bot = new TelegramBot(TOKEN, {
     }
 });
 
-const cafe = [
-    {
-        id: 'shkaf',
-        name: 'ШКАФ',
-        rating: '4.7/5.0',
-        address: 'Бульвар Чайвана, 32',
-        geoPosition: '56.634934, 47.898716',
-        timetable: 'Ежедневно c 08:00 до 22:00'
-    },
-    {
-        id: 'sangrita',
-        name: 'Сангрита',
-        rating: '4.9/5.0',
-        address: 'Бульвар Чайвана, 36',
-        geoPosition: '56.635203, 47.897201',
-        timetable: 'Ежедневно с 12:00 до 23:00'
-    },
-    {
-        id: 'frendi',
-        name: 'Гастропаб ФрендЫ',
-        rating: '4.4/5.0',
-        address: 'улица Советская, 120',
-        geoPosition: '56.635414, 47.897528',
-        timetable: 'Пн-Пт: 11:00 - 00:00\nСб-Вс: 12:00 - 00:00'
-    },
-    {
-        id: 'malChikago',
-        name: 'Маленькое Чикаго',
-        rating: '4.4/5.0',
-        address: 'улица Гоголя, 12',
-        geoPosition: '56.630700, 47.894625',
-        timetable: 'Пн-Сб: 09:00 - 23:00\nВс: 12:00 - 23:00'
-    },
-]
+function readJsonFile(filePath) {
+    const absolutePath = path.resolve(__dirname, 'data', filePath);
+    const fileContent = fs.readFileSync(absolutePath, 'utf8');
+    return JSON.parse(fileContent);
+}
 
-const restaurants = [
-    {
-        id: 'monTresor',
-        name: 'Мон Трезор',
-        rating: '4.9/5.0',
-        address: 'улица Кирова, 9Б',
-        geoPosition: '56.631119, 47.928515',
-        timetable: 'Пн-Чт: 12:00 - 00:00\nПт-Сб: 12:00 - 01:00\nВс: 12:00 - 00:00'
-    },
-    {
-        id: 'gosti',
-        name: 'Гости',
-        rating: '4.7/5.0',
-        address: 'улица Волкова, 135',
-        geoPosition: '56.632447, 47.893262',
-        timetable: 'Пн-Пт: 12:00 - 23:00\nСб-Вс: 11:00 - 23:00'
-    },
-    {
-        id: 'mullerHall',
-        name: 'Мюллер Холл',
-        rating: '4.4/5.0',
-        address: 'Ленинский проспект, 6',
-        geoPosition: '56.625263, 47.929138',
-        timetable: 'Пн: выходной\nВт-Чт: 12:00 - 00:00\nПт-Сб: 12:00 - 03:00\nВс: 12:00 - 00:00'
-    }
-]
+const cafe = readJsonFile('cafesData.json')
+const restaurants = readJsonFile('restaurantsData.json')
+const hotels = readJsonFile('hotelsData.json')
 
 bot.on('text', async msg => {
     try {
@@ -135,7 +85,7 @@ bot.on('callback_query', async ctx => {
                     reply_markup: {
                         inline_keyboard: [
                             [
-                                {text: 'Кафе', callback_data: 'cafe'},
+                                {text: 'Кафе', callback_data: 'cafes'},
                                 {text: 'Рестораны', callback_data: 'restaurants'}
                             ],
                         ],
@@ -213,7 +163,7 @@ bot.on('callback_query', async ctx => {
                     }
                 })
                 break
-            case 'cafe':
+            case 'cafes':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Выберите кафе', {
                     reply_markup: {
@@ -237,7 +187,14 @@ bot.on('callback_query', async ctx => {
                 break
             case 'hotels':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать отели')
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите отель', {
+                    reply_markup: {
+                        inline_keyboard: hotels.map(c => [{
+                            text: c.name, callback_data: c.id
+                        }]),
+                        resize_keyboard: true
+                    }
+                })
                 break
             case 'hostels':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -283,6 +240,8 @@ bot.on('callback_query', async ctx => {
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать традиционные праздники')
                 break
+
+            //cafes
             case 'shkaf':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.jpg`, {
@@ -290,7 +249,7 @@ bot.on('callback_query', async ctx => {
                     parse_mode: 'HTML',
                     reply_markup: {
                         inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafe'}]
+                            [{text: 'Назад', callback_data: 'cafes'}]
                         ],
                         resize_keyboard: true
                     }
@@ -303,7 +262,7 @@ bot.on('callback_query', async ctx => {
                     parse_mode: 'HTML',
                     reply_markup: {
                         inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafe'}]
+                            [{text: 'Назад', callback_data: 'cafes'}]
                         ],
                         resize_keyboard: true
                     }
@@ -316,7 +275,7 @@ bot.on('callback_query', async ctx => {
                     parse_mode: 'HTML',
                     reply_markup: {
                         inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafe'}]
+                            [{text: 'Назад', callback_data: 'cafes'}]
                         ],
                         resize_keyboard: true
                     }
@@ -329,12 +288,14 @@ bot.on('callback_query', async ctx => {
                     parse_mode: 'HTML',
                     reply_markup: {
                         inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafe'}]
+                            [{text: 'Назад', callback_data: 'cafes'}]
                         ],
                         resize_keyboard: true
                     }
                 })
                 break
+
+            //restaurants
             case 'monTresor':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
@@ -374,6 +335,62 @@ bot.on('callback_query', async ctx => {
                     }
                 })
                 break
+
+            //hotels
+            case 'firstTrain':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hotels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
+            case 'amaksCityHotel':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hotels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
+            case 'revizor':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hotels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
+            case 'nikitin':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hotels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
+
+            //hostels
         }
     } catch (error) {
         console.log(error);
