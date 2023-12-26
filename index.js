@@ -10,22 +10,63 @@ const bot = new TelegramBot(TOKEN, {
 
 const cafe = [
     {
-        type: 'cafe_',
         id: 'shkaf',
         name: 'ШКАФ',
-        rating: '4,7',
+        rating: '4.7/5.0',
         address: 'Бульвар Чайвана, 32',
         geoPosition: '56.634934, 47.898716',
         timetable: 'Ежедневно c 08:00 до 22:00'
     },
     {
-        type: 'cafe_',
         id: 'sangrita',
         name: 'Сангрита',
-        rating: '4,9',
+        rating: '4.9/5.0',
         address: 'Бульвар Чайвана, 36',
         geoPosition: '56.635203, 47.897201',
         timetable: 'Ежедневно с 12:00 до 23:00'
+    },
+    {
+        id: 'frendi',
+        name: 'Гастропаб ФрендЫ',
+        rating: '4.4/5.0',
+        address: 'улица Советская, 120',
+        geoPosition: '56.635414, 47.897528',
+        timetable: 'Пн-Пт: 11:00 - 00:00\nСб-Вс: 12:00 - 00:00'
+    },
+    {
+        id: 'malChikago',
+        name: 'Маленькое Чикаго',
+        rating: '4.4/5.0',
+        address: 'улица Гоголя, 12',
+        geoPosition: '56.630700, 47.894625',
+        timetable: 'Пн-Сб: 09:00 - 23:00\nВс: 12:00 - 23:00'
+    },
+]
+
+const restaurants = [
+    {
+        id: 'monTresor',
+        name: 'Мон Трезор',
+        rating: '4.9/5.0',
+        address: 'улица Кирова, 9Б',
+        geoPosition: '56.631119, 47.928515',
+        timetable: 'Пн-Чт: 12:00 - 00:00\nПт-Сб: 12:00 - 01:00\nВс: 12:00 - 00:00'
+    },
+    {
+        id: 'gosti',
+        name: 'Гости',
+        rating: '4.7/5.0',
+        address: 'улица Волкова, 135',
+        geoPosition: '56.632447, 47.893262',
+        timetable: 'Пн-Пт: 12:00 - 23:00\nСб-Вс: 11:00 - 23:00'
+    },
+    {
+        id: 'mullerHall',
+        name: 'Мюллер Холл',
+        rating: '4.4/5.0',
+        address: 'Ленинский проспект, 6',
+        geoPosition: '56.625263, 47.929138',
+        timetable: 'Пн: выходной\nВт-Чт: 12:00 - 00:00\nПт-Сб: 12:00 - 03:00\nВс: 12:00 - 00:00'
     }
 ]
 
@@ -185,7 +226,14 @@ bot.on('callback_query', async ctx => {
                 break
             case 'restaurants':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать рестораны')
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите ресторан', {
+                    reply_markup: {
+                        inline_keyboard: restaurants.map(c => [{
+                            text: c.name, callback_data: c.id
+                        }]),
+                        resize_keyboard: true
+                    }
+                })
                 break
             case 'hotels':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -249,6 +297,41 @@ bot.on('callback_query', async ctx => {
                     parse_mode: 'HTML',
                 })
                 break
+            case 'frendi':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/frendi.webp`, {
+                    caption: getDescription(ctx.data),
+                    parse_mode: 'HTML',
+                })
+                break
+            case 'malChikago':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/malChikago.webp`, {
+                    caption: getDescription(ctx.data),
+                    parse_mode: 'HTML',
+                })
+                break
+            case 'monTresor':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/monTresor.webp`, {
+                    caption: getDescriptionRestaurants(ctx.data),
+                    parse_mode: 'HTML',
+                })
+                break
+            case 'gosti':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/gosti.webp`, {
+                    caption: getDescriptionRestaurants(ctx.data),
+                    parse_mode: 'HTML',
+                })
+                break
+            case 'mullerHall':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/mullerHall.webp`, {
+                    caption: getDescriptionRestaurants(ctx.data),
+                    parse_mode: 'HTML',
+                })
+                break
         }
     } catch (error) {
         console.log(error);
@@ -257,5 +340,9 @@ bot.on('callback_query', async ctx => {
 
 function getDescription(id) {
     const data = cafe.filter(c => c.id === id)
+    return `\n${data.map(c => c.name)}\nАдрес: ${data.map(c => c.address)}\nРейтинг: ${data.map(c => c.rating)}\nМестоположение: ${data.map(c => c.geoPosition)}\nГрафик работы: ${data.map(c => c.timetable)}`
+}
+function getDescriptionRestaurants(id) {
+    const data = restaurants.filter(c => c.id === id)
     return `\n${data.map(c => c.name)}\nАдрес: ${data.map(c => c.address)}\nРейтинг: ${data.map(c => c.rating)}\nМестоположение: ${data.map(c => c.geoPosition)}\nГрафик работы: ${data.map(c => c.timetable)}`
 }
