@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
 const {hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo} = require("./data/typesInfo");
-const TOKEN = '6714508446:AAH7QDFsOFOCl-dlI2eTGHwY4KwE1K9J7Ik'
+const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
 
 const bot = new TelegramBot(TOKEN, {
     polling: {
@@ -135,7 +135,7 @@ bot.on('callback_query', async ctx => {
                                 {text: 'Парки', callback_data: 'parks'},
                             ],
                             [
-                                {text: 'Достопримечательности', callback_data: 'attractions'}
+                                {text: 'Достопримечательности', callback_data: 'sights'}
                             ]
                         ],
                         resize_keyboard: true
@@ -236,7 +236,7 @@ bot.on('callback_query', async ctx => {
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать парки')
                 break
-            case 'attractions':
+            case 'sights':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать достопримечательности')
                 break
