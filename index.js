@@ -285,50 +285,50 @@ bot.on('callback_query', async ctx => {
                 break
             case 'shkaf':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/shkaf.jpg`, {
-                    caption: getDescription(ctx.data),
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.jpg`, {
+                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
                 })
                 break
             case 'sangrita':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/sangrita.jpg`, {
-                    caption: getDescription(ctx.data),
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.jpg`, {
+                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
                 })
                 break
             case 'frendi':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/frendi.webp`, {
-                    caption: getDescription(ctx.data),
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
                 })
                 break
             case 'malChikago':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/malChikago.webp`, {
-                    caption: getDescription(ctx.data),
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
                 })
                 break
             case 'monTresor':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/monTresor.webp`, {
-                    caption: getDescriptionRestaurants(ctx.data),
+                await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
                 })
                 break
             case 'gosti':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/gosti.webp`, {
-                    caption: getDescriptionRestaurants(ctx.data),
+                await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
                 })
                 break
             case 'mullerHall':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/mullerHall.webp`, {
-                    caption: getDescriptionRestaurants(ctx.data),
+                await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
                     parse_mode: 'HTML',
                 })
                 break
@@ -338,11 +338,6 @@ bot.on('callback_query', async ctx => {
     }
 })
 
-function getDescription(id) {
-    const data = cafe.filter(c => c.id === id)
-    return `\n${data.map(c => c.name)}\nАдрес: ${data.map(c => c.address)}\nРейтинг: ${data.map(c => c.rating)}\nМестоположение: ${data.map(c => c.geoPosition)}\nГрафик работы: ${data.map(c => c.timetable)}`
-}
-function getDescriptionRestaurants(id) {
-    const data = restaurants.filter(c => c.id === id)
+function getDescription(id, data) {
     return `\n${data.map(c => c.name)}\nАдрес: ${data.map(c => c.address)}\nРейтинг: ${data.map(c => c.rating)}\nМестоположение: ${data.map(c => c.geoPosition)}\nГрафик работы: ${data.map(c => c.timetable)}`
 }
