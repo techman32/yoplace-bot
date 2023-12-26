@@ -1,14 +1,15 @@
 const fs = require('fs');
 const path = require('path');
 const TelegramBot = require('node-telegram-bot-api');
-const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
+const {hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo} = require("./data/typesInfo");
+const TOKEN = '6714508446:AAH7QDFsOFOCl-dlI2eTGHwY4KwE1K9J7Ik'
 
 const bot = new TelegramBot(TOKEN, {
     polling: {
         interval: 300,
         autoStart: true
     }
-});
+})
 
 function readJsonFile(filePath) {
     const absolutePath = path.resolve(__dirname, 'data', filePath);
@@ -16,10 +17,25 @@ function readJsonFile(filePath) {
     return JSON.parse(fileContent);
 }
 
-const cafe = readJsonFile('cafesData.json')
+const cafes = readJsonFile('cafesData.json')
 const restaurants = readJsonFile('restaurantsData.json')
 const hotels = readJsonFile('hotelsData.json')
 const hostels = readJsonFile('hostelsData.json')
+
+async function updateCards(ctx, cardType, cardsInfo, cardArray) {
+    const card = cardsInfo[ctx.data];
+    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+    await bot.sendPhoto(ctx.message.chat.id, `./images/${cardType}/${card.image}`, {
+        caption: getDescription(card.id, cardArray.filter(c => c.id === card.id)),
+        parse_mode: 'HTML',
+        reply_markup: {
+            inline_keyboard: [
+                [{ text: card.buttonText, callback_data: cardType }]
+            ],
+            resize_keyboard: true
+        }
+    })
+}
 
 bot.on('text', async msg => {
     try {
@@ -168,7 +184,7 @@ bot.on('callback_query', async ctx => {
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Выберите кафе', {
                     reply_markup: {
-                        inline_keyboard: cafe.map(c => [{
+                        inline_keyboard: cafes.map(c => [{
                             text: c.name, callback_data: c.id
                         }]),
                         resize_keyboard: true
@@ -251,205 +267,33 @@ bot.on('callback_query', async ctx => {
 
             //cafes
             case 'shkaf':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.jpg`, {
-                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafes'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'sangrita':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.jpg`, {
-                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafes'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'frendi':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafes'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'malChikago':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, cafe.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'cafes'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await updateCards(ctx, 'cafes', cafesInfo, cafes);
                 break
 
             //restaurants
             case 'monTresor':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'restaurants'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'gosti':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'restaurants'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'mullerHall':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/restaurants/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, restaurants.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'restaurants'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await updateCards(ctx, 'restaurants', restaurantsInfo, restaurants);
                 break
 
             //hotels
             case 'firstTrain':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hotels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'amaksCityHotel':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hotels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'revizor':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hotels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'nikitin':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hotels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hotels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hotels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await updateCards(ctx, 'hotels', hotelsInfo, hotels);
                 break
 
             //hostels
             case 'evrika':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hostels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'virginia':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hostels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'flatLuxe':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hostels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
-                break
             case 'rgard':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
-                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
-                    parse_mode: 'HTML',
-                    reply_markup: {
-                        inline_keyboard: [
-                            [{text: 'Назад', callback_data: 'hostels'}]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await updateCards(ctx, 'hostels', hostelsInfo, hostels);
                 break
         }
     } catch (error) {
