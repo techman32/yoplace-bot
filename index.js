@@ -86,7 +86,6 @@ bot.on('text', async msg => {
 })
 
 bot.on('callback_query', async ctx => {
-    console.log(cafe.map(c => c.id))
     try {
         switch (ctx.data) {
             case 'food':
@@ -236,17 +235,27 @@ bot.on('callback_query', async ctx => {
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать традиционные праздники')
                 break
-            case cafe.filter(c => c.id):
-                const data = cafe.filter(c => c.id === ctx.data)
+            case 'shkaf':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendPhoto(ctx.message.chat.id, './images/cafe/shkaf.jpg', {
-                    caption: `\n${data.map(c => c.name)}\nАдрес: ${data.map(c => c.address)}\nРейтинг: ${data.map(c => c.rating)}\nМестоположение: ${data.map(c => c.geoPosition)}\nГрафик работы: ${data.map(c => c.timetable)}`,
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/shkaf.jpg`, {
+                    caption: getDescription(ctx.data),
                     parse_mode: 'HTML',
                 })
-                console.log(ctx)
+                break
+            case 'sangrita':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/cafe/sangrita.jpg`, {
+                    caption: getDescription(ctx.data),
+                    parse_mode: 'HTML',
+                })
                 break
         }
     } catch (error) {
         console.log(error);
     }
 })
+
+function getDescription(id) {
+    const data = cafe.filter(c => c.id === id)
+    return `\n${data.map(c => c.name)}\nАдрес: ${data.map(c => c.address)}\nРейтинг: ${data.map(c => c.rating)}\nМестоположение: ${data.map(c => c.geoPosition)}\nГрафик работы: ${data.map(c => c.timetable)}`
+}
