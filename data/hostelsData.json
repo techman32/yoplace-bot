@@ -1,0 +1,34 @@
+[
+  {
+    "id": "evrika",
+    "name": "Эврика",
+    "rating": "4.7/5.0",
+    "address": "улица Чехова, 73",
+    "geoPosition": "56.645323, 47.881728",
+    "timetable": "Круглосуточно"
+  },
+  {
+    "id": "virginia",
+    "name": "Вирджиния",
+    "rating": "4.9/5.0",
+    "address": "Первомайский переулок, 12",
+    "geoPosition": "56.642902, 47.887330",
+    "timetable": "Круглосуточно"
+  },
+  {
+    "id": "flatLuxe",
+    "name": "Flat-Luxe",
+    "rating": "4.9/5.0",
+    "address": "улица Строителей, 54Г",
+    "geoPosition": "56.631381, 47.841147",
+    "timetable": "Круглосуточно"
+  },
+  {
+    "id": "rgard",
+    "name": "RGARD",
+    "rating": "5.0/5.0",
+    "address": "улица Карла Либкнехта, 102к1",
+    "geoPosition": "56.628935, 47.936033",
+    "timetable": "Круглосуточно"
+  }
+]

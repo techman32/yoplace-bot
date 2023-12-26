@@ -19,6 +19,7 @@ function readJsonFile(filePath) {
 const cafe = readJsonFile('cafesData.json')
 const restaurants = readJsonFile('restaurantsData.json')
 const hotels = readJsonFile('hotelsData.json')
+const hostels = readJsonFile('hostelsData.json')
 
 bot.on('text', async msg => {
     try {
@@ -198,7 +199,14 @@ bot.on('callback_query', async ctx => {
                 break
             case 'hostels':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать гостиницы')
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите гостиницу', {
+                    reply_markup: {
+                        inline_keyboard: hostels.map(c => [{
+                            text: c.name, callback_data: c.id
+                        }]),
+                        resize_keyboard: true
+                    }
+                })
                 break
             case 'museums':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -391,6 +399,58 @@ bot.on('callback_query', async ctx => {
                 break
 
             //hostels
+            case 'evrika':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hostels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
+            case 'virginia':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hostels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
+            case 'flatLuxe':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hostels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
+            case 'rgard':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendPhoto(ctx.message.chat.id, `./images/hostels/${ctx.data}.webp`, {
+                    caption: getDescription(ctx.data, hostels.filter(c => c.id === ctx.data)),
+                    parse_mode: 'HTML',
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{text: 'Назад', callback_data: 'hostels'}]
+                        ],
+                        resize_keyboard: true
+                    }
+                })
+                break
         }
     } catch (error) {
         console.log(error);
