@@ -343,5 +343,6 @@ bot.on('callback_query', async ctx => {
 })
 
 function getDescription(id, data) {
-    return `\n<strong>«${data.map(c => c.name)}»</strong>\n\n📍 <u>Адрес:</u> ${data.map(c => c.address)}\n⭐️ <u>Рейтинг:</u> ${data.map(c => c.rating)}\n⏰ <u>График работы:</u>\n${data.map(c => c.timetable)}\n\nЯ.Карты: <a href="${data.map(c => c.geoPosition)}">посмотреть</a>`
+    const item = data.find(c => c.id === id)
+    return `\n<strong>«${item.name}»</strong>\n\n📍 <u>Адрес:</u> ${item.address}\n⭐️ <u>Рейтинг:</u> ${item.rating}\n⏰ <u>График работы:</u>\n${item.timetable}\n\nЯ.Карты: <a href="${item.geoPosition}">посмотреть</a>`
 }
