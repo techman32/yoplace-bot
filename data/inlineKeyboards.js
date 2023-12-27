@@ -133,14 +133,46 @@ const individualsKeyboard = {
     }
 }
 
-const individualsBackKeyboard = {
+const cultureKeyboard = {
     reply_markup: {
         inline_keyboard: [
             [
-                {text: '⬅️ Назад', callback_data: 'interesting_individuals'}
+                {text: 'Интересные личности', callback_data: 'interesting_individuals'},
+            ],
+            [
+                {text: 'Традиционные праздники', callback_data: 'traditional_holidays'},
+            ],
+            [
+                {text: '⬅️ Назад', callback_data: 'menu_info'}
+            ]
+        ],
+        resize_keyboard: true
+    }
+}
+
+const holidaysKeyboard = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {text: 'У пучымыш (Праздник новой каши)', callback_data: 'upuchimish'},
+            ],
+            [
+                {text: 'Кугече (Пасха)', callback_data: 'kugeche'},
+            ],
+            [
+                {text: 'Угинде (Праздник нового хлеба)', callback_data: 'uginde'},
+            ],
+            [
+                {text: 'Пӧртсий (новоселье)', callback_data: 'portsii'},
+            ],
+            [
+                {text: 'Сӱрем (Праздник летнего жертвоприношения)', callback_data: 'surem'},
+            ],
+            [
+                {text: '⬅️ Назад', callback_data: 'culture'}
             ]
         ]
     }
 }
 
-module.exports = {startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard, individualsKeyboard, individualsBackKeyboard}
+module.exports = {startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard, individualsKeyboard, cultureKeyboard, holidaysKeyboard}

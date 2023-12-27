@@ -8,8 +8,9 @@ const {
 } = require('./data/typesInfo')
 const {
     startKeyboard, dosugKeyboard, infoKeyboard,
-    foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard, individualsKeyboard,
-    individualsBackKeyboard
+    foodKeyboard, checkinKeyboard, cultureChillKeyboard,
+    entertainmentKeyboard, historyKeyboard, individualsKeyboard,
+    cultureKeyboard, holidaysKeyboard
 } = require('./data/inlineKeyboards')
 
 const bot = new TelegramBot(process.env.API_KEY, {
@@ -48,9 +49,17 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
     })
 }
 
-async function updatePersons(ctx, url) {
+async function updateCulture(ctx, url, callBack) {
     await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
-    await bot.sendMessage(ctx.message.chat.id, url, individualsBackKeyboard);
+    await bot.sendMessage(ctx.message.chat.id, url, {
+        reply_markup: {
+            inline_keyboard: [
+                [
+                    {text: '⬅️ Назад', callback_data: `${callBack}`}
+                ]
+            ]
+        }
+    });
 }
 
 async function setOptions(ctx, message, data, backButtonCallback) {
@@ -122,22 +131,7 @@ bot.on('callback_query', async ctx => {
                 break
             case 'culture':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите, что хотите узнать о культуре', {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                {text: 'Интересные личности', callback_data: 'interesting_individuals'},
-                            ],
-                            [
-                                {text: 'Традиционные праздники', callback_data: 'traditional_holidays'},
-                            ],
-                            [
-                                {text: '⬅️ Назад', callback_data: 'menu_info'}
-                            ]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите, что хотите узнать о культуре', cultureKeyboard)
                 break
 
             case 'cafes':
@@ -185,18 +179,34 @@ bot.on('callback_query', async ctx => {
                 await bot.sendMessage(ctx.message.chat.id, 'Выберите человека', individualsKeyboard)
                 break
             case 'eshpay':
-                await updatePersons(ctx, 'https://telegra.ph/YAkov-Andreevich-EHshpaj-12-26');
+                await updateCulture(ctx, 'https://telegra.ph/YAkov-Andreevich-EHshpaj-12-26', 'interesting_individuals');
                 break
             case 'eshkinin':
-                await updatePersons(ctx, 'https://telegra.ph/Andrej-Karpovich-EHshkinin-12-26');
+                await updateCulture(ctx, 'https://telegra.ph/Andrej-Karpovich-EHshkinin-12-26', 'interesting_individuals');
                 break
             case 'dmitriev':
-                await updatePersons(ctx, 'https://telegra.ph/YUrij-YAkovlevich-Dmitriev-12-26');
+                await updateCulture(ctx, 'https://telegra.ph/YUrij-YAkovlevich-Dmitriev-12-26', 'interesting_individuals');
                 break
 
             case 'traditional_holidays':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать традиционные праздники')
+                await bot.sendMessage(ctx.message.chat.id, 'Традиционные праздники', holidaysKeyboard)
+                break
+
+            case 'upuchimish':
+                await updateCulture(ctx, 'https://telegra.ph/U-puchymysh-Prazdnik-novoj-kashi-12-27', 'traditional_holidays');
+                break
+            case 'kugeche':
+                await updateCulture(ctx, 'https://telegra.ph/U-puchymysh-Prazdnik-novoj-kashi-12-27', 'traditional_holidays');
+                break
+            case 'uginde':
+                await updateCulture(ctx, 'https://telegra.ph/Uginde-Prazdnik-novogo-hleba-12-27', 'traditional_holidays');
+                break
+            case 'portsii':
+                await updateCulture(ctx, 'https://telegra.ph/P%D3%A7rtsij-novosele-12-27', 'traditional_holidays');
+                break
+            case 'surem':
+                await updateCulture(ctx, 'https://telegra.ph/S%D3%B1rem-Prazdnik-letnego-zhertvoprinosheniya-12-27', 'traditional_holidays');
                 break
 
             case 'close_menu':
