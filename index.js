@@ -113,7 +113,16 @@ bot.on('callback_query', async ctx => {
 
             case 'history':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, '')
+                const historyUrl = 'https://telegra.ph/Istoriya-Joshkar-Oly-12-26'
+                await bot.sendMessage(ctx.message.chat.id, historyUrl, {
+                    reply_markup: {
+                        inline_keyboard: [
+                            [
+                                { text: 'Назад', callback_data: 'menu_info' }
+                            ]
+                        ]
+                    }
+                })
                 break
             case 'culture':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
