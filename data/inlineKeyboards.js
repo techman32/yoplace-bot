@@ -98,4 +98,14 @@ const entertainmentKeyboard = {
     }
 }
 
-module.exports = {startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard}
+const historyKeyboard = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                { text: 'Назад', callback_data: 'menu_info' }
+            ]
+        ]
+    }
+}
+
+module.exports = {startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard}

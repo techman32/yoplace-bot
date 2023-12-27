@@ -5,7 +5,7 @@ const {hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo,
         museumsInfo, theatersInfo, parksInfo, sightsInfo,
         questsInfo, barsInfo, loungebarsInfo, cinemasInfo} = require('./data/typesInfo')
 const {startKeyboard, dosugKeyboard, infoKeyboard,
-        foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard
+        foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard
 } = require('./data/inlineKeyboards')
 
 const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
@@ -23,18 +23,12 @@ function readJsonFile(filePath) {
     return JSON.parse(fileContent)
 }
 
-const cafes = readJsonFile('cafesData.json')
-const restaurants = readJsonFile('restaurantsData.json')
-const hotels = readJsonFile('hotelsData.json')
-const hostels = readJsonFile('hostelsData.json')
-const museums = readJsonFile('museumsData.json')
-const theaters = readJsonFile('theatersData.json')
-const parks = readJsonFile('parksData.json')
-const sights = readJsonFile('sightsData.json')
-const quests = readJsonFile('questsData.json')
-const bars = readJsonFile('barsData.json')
-const loungebars = readJsonFile('loungebarsData.json')
-const cinemas = readJsonFile('cinemasData.json')
+const {cafes, restaurants, hotels, hostels, museums, theaters,
+    parks, sights, quests, bars, loungebars, cinemas
+} = Object.fromEntries(
+    ['cafes', 'restaurants', 'hotels', 'hostels', 'museums', 'theaters', 'parks', 'sights', 'quests', 'bars', 'loungebars', 'cinemas']
+        .map(key => [key, readJsonFile(`${key}Data.json`)])
+)
 
 async function updateCards(ctx, cardType, cardsInfo, cardArray) {
     const card = cardsInfo[ctx.data]
@@ -114,15 +108,7 @@ bot.on('callback_query', async ctx => {
             case 'history':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 const historyUrl = 'https://telegra.ph/Istoriya-Joshkar-Oly-12-26'
-                await bot.sendMessage(ctx.message.chat.id, historyUrl, {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                { text: 'Назад', callback_data: 'menu_info' }
-                            ]
-                        ]
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, historyUrl, historyKeyboard)
                 break
             case 'culture':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
