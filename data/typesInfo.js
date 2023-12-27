@@ -1,23 +1,25 @@
+const buttonText = 'Назад'
+
 const hotelsInfo = {
     'firstTrain': {
         id: 'firstTrain',
         image: 'firstTrain.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'amaksCityHotel': {
         id: 'amaksCityHotel',
         image: 'amaksCityHotel.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'revizor': {
         id: 'revizor',
         image: 'revizor.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'nikitin': {
         id: 'nikitin',
         image: 'nikitin.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -25,17 +27,17 @@ const restaurantsInfo = {
     'monTresor': {
         id: 'monTresor',
         image: 'monTresor.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'gosti': {
         id: 'gosti',
         image: 'gosti.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'mullerHall': {
         id: 'mullerHall',
         image: 'mullerHall.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -43,22 +45,22 @@ const cafesInfo = {
     'shkaf': {
         id: 'shkaf',
         image: 'shkaf.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'sangrita': {
         id: 'sangrita',
         image: 'sangrita.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'frendi': {
         id: 'frendi',
         image: 'frendi.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'malChikago': {
         id: 'malChikago',
         image: 'malChikago.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -66,22 +68,22 @@ const hostelsInfo = {
     'evrika': {
         id: 'evrika',
         image: 'evrika.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'virginia': {
         id: 'virginia',
         image: 'virginia.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'flatLuxe': {
         id: 'flatLuxe',
         image: 'flatLuxe.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'rgard': {
         id: 'rgard',
         image: 'rgard.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -89,22 +91,22 @@ const museumsInfo = {
     'evseev': {
         id: 'evseev',
         image: 'evseev.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'nationalGallery': {
         id: 'nationalGallery',
         image: 'nationalGallery.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'republicGallery': {
         id: 'republicGallery',
         image: 'republicGallery.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'cheese': {
         id: 'cheese',
         image: 'cheese.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -112,27 +114,27 @@ const theatersInfo = {
     'shketan': {
         id: 'shketan',
         image: 'shketan.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'junZritel': {
         id: 'junZritel',
         image: 'junZritel.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'sapaev': {
         id: 'sapaev',
         image: 'sapaev.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'kukly': {
         id: 'kukly',
         image: 'kukly.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'konstantinov': {
         id: 'konstantinov',
         image: 'konstantinov.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -140,27 +142,27 @@ const parksInfo = {
     'centr': {
         id: 'centr',
         image: 'centr.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'pobeda': {
         id: 'pobeda',
         image: 'pobeda.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'mnogolet': {
         id: 'mnogolet',
         image: 'mnogolet.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'sunday': {
         id: 'sunday',
         image: 'sunday.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'sosni': {
         id: 'sosni',
         image: 'sosni.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -168,27 +170,27 @@ const sightsInfo = {
     'yokot': {
         id: 'yokot',
         image: 'yokot.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'twelve': {
         id: 'twelve',
         image: 'twelve.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'blagoSobor': {
         id: 'blagoSobor',
         image: 'blagoSobor.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'spASSTower': {
         id: 'spASSTower',
         image: 'spASSTower.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'korepovy': {
         id: 'korepovy',
         image: 'korepovy.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -196,17 +198,17 @@ const questsInfo = {
     'vihod': {
         id: 'vihod',
         image: 'vihod.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'molchanie': {
         id: 'molchanie',
         image: 'molchanie.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'vinegret': {
         id: 'vinegret',
         image: 'vinegret.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -214,27 +216,27 @@ const barsInfo = {
     'buldog': {
         id: 'buldog',
         image: 'buldog.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'theFox': {
         id: 'theFox',
         image: 'theFox.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'dublin': {
         id: 'dublin',
         image: 'dublin.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'pivovar': {
         id: 'pivovar',
         image: 'pivovar.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'chester': {
         id: 'chester',
         image: 'chester.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -242,22 +244,22 @@ const loungebarsInfo = {
     'hookah': {
         id: 'hookah',
         image: 'hookah.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'oblaka': {
         id: 'oblaka',
         image: 'oblaka.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'edison': {
         id: 'edison',
         image: 'edison.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'fenomen': {
         id: 'fenomen',
         image: 'fenomen.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 
@@ -265,17 +267,17 @@ const cinemasInfo = {
     'super': {
         id: 'super',
         image: 'super.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'cinemaEl': {
         id: 'cinemaEl',
         image: 'cinemaEl.webp',
-        buttonText: 'Назад'
+        buttonText: buttonText
     },
     'oktyabr': {
         id: 'oktyabr',
         image: 'oktyabr.jpg',
-        buttonText: 'Назад'
+        buttonText: buttonText
     }
 }
 

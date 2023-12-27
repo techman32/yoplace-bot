@@ -1,20 +1,13 @@
 const fs = require('fs')
 const path = require('path')
 const TelegramBot = require('node-telegram-bot-api')
-const {
-        hotelsInfo,
-        hostelsInfo,
-        restaurantsInfo,
-        cafesInfo,
-        museumsInfo,
-        theatersInfo,
-        parksInfo,
-        sightsInfo,
-        questsInfo,
-        barsInfo,
-        loungebarsInfo,
-        cinemasInfo
-      } = require('./data/typesInfo')
+const {hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo,
+        museumsInfo, theatersInfo, parksInfo, sightsInfo,
+        questsInfo, barsInfo, loungebarsInfo, cinemasInfo} = require('./data/typesInfo')
+const {startKeyboard, dosugKeyboard, infoKeyboard,
+        foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard
+} = require('./data/inlineKeyboards')
+
 const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
 
 const bot = new TelegramBot(TOKEN, {
@@ -74,51 +67,13 @@ async function setOptions(ctx, message, data, backButtonCallback) {
 bot.on('text', async msg => {
     try {
         if (msg.text === '/start') {
-            await bot.sendMessage(msg.chat.id, 'Выберите, что ищем', {
-                reply_markup: {
-                    keyboard: [
-                        ['🧘🏼‍ Досуг'],
-                        ['🏙 Информация о городе']
-                    ],
-                    resize_keyboard: true
-                }
-            })
+            await bot.sendMessage(msg.chat.id, 'Выберите, что ищем', startKeyboard)
         } else if (msg.text === '/menu') {
-            await bot.sendMessage(msg.chat.id, 'Меню', {
-                reply_markup: {
-                    keyboard: [
-                        ['🧘🏼‍ Досуг'],
-                        ['🏙 Информация о городе']
-                    ],
-                    resize_keyboard: true
-                }
-            })
+            await bot.sendMessage(msg.chat.id, 'Меню', startKeyboard)
         } else if (msg.text === '🧘🏼‍ Досуг') {
-            await bot.sendMessage(msg.chat.id, '🧘🏼‍ Досуг', {
-                reply_markup: {
-                    inline_keyboard: [
-                        [
-                            {text: 'Где поесть', callback_data: 'food'},
-                            {text: 'Где заселиться', callback_data: 'checkin'}
-                        ],
-                        [
-                            {text: 'Культурный отдых', callback_data: 'culture_chill'},
-                            {text: 'Развлечения', callback_data: 'entertainment'}
-                        ]
-                    ]
-                }
-            })
+            await bot.sendMessage(msg.chat.id, '🧘🏼‍ Досуг', dosugKeyboard)
         } else if (msg.text === '🏙 Информация о городе') {
-            await bot.sendMessage(msg.chat.id, '🏙 Информация о городе', {
-                reply_markup: {
-                    inline_keyboard: [
-                        [
-                            {text: 'История города', callback_data: 'history'},
-                            {text: 'Культура', callback_data: 'culture'}
-                        ]
-                    ]
-                }
-            })
+            await bot.sendMessage(msg.chat.id, '🏙 Информация о городе', infoKeyboard)
         } else {
             await bot.sendMessage(msg.chat.id, msg.text)
         }
@@ -132,114 +87,33 @@ bot.on('callback_query', async ctx => {
         switch (ctx.data) {
             case 'menu_dosug':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, '🧘🏼‍ Досуг', {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                { text: 'Где поесть', callback_data: 'food' },
-                                { text: 'Где заселиться', callback_data: 'checkin' }
-                            ],
-                            [
-                                { text: 'Культурный отдых', callback_data: 'culture_chill' },
-                                { text: 'Развлечения', callback_data: 'entertainment' }
-                            ],
-                        ]
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, '🧘🏼‍ Досуг', dosugKeyboard)
                 break
             case 'menu_info':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(msg.chat.id, '🏙 Информация о городе', {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                {text: 'История города', callback_data: 'history'},
-                                {text: 'Культура', callback_data: 'culture'}
-                            ]
-                        ]
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, '🏙 Информация о городе', infoKeyboard)
                 break
 
             case 'food':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите покушать', {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                {text: 'Кафе', callback_data: 'cafes'},
-                                {text: 'Рестораны', callback_data: 'restaurants'}
-                            ],
-                            [
-                                {text: 'Назад', callback_data: 'menu_dosug'}
-                            ]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите покушать', foodKeyboard)
                 break
             case 'checkin':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите заселиться', {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                {text: 'Отели', callback_data: 'hotels'},
-                                {text: 'Гостиницы', callback_data: 'hostels'}
-                            ],
-                            [
-                                {text: 'Назад', callback_data: 'menu_dosug'}
-                            ]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите заселиться', checkinKeyboard)
                 break
             case 'culture_chill':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите культурно отдохнуть', {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                {text: 'Музеи', callback_data: 'museums'},
-                                {text: 'Театры', callback_data: 'theaters'},
-                                {text: 'Парки', callback_data: 'parks'},
-                            ],
-                            [
-                                {text: 'Достопримечательности', callback_data: 'sights'}
-                            ],
-                            [
-                                {text: 'Назад', callback_data: 'menu_dosug'}
-                            ]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите культурно отдохнуть', cultureChillKeyboard)
                 break
             case 'entertainment':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите поразвлекаться', {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                {text: 'Квесты', callback_data: 'quests'},
-                                {text: 'Бары', callback_data: 'bars'},
-                            ],
-                            [
-                                {text: 'Лаунж бары', callback_data: 'loungebars'},
-                                {text: 'Кинотеатры', callback_data: 'cinemas'}
-                            ],
-                            [
-                                {text: 'Назад', callback_data: 'menu_dosug'}
-                            ]
-                        ],
-                        resize_keyboard: true
-                    }
-                })
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите поразвлекаться', entertainmentKeyboard)
                 break
+
             case 'history':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Интересная информаци об истории города')
+                await bot.sendMessage(ctx.message.chat.id, '')
                 break
             case 'culture':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -251,6 +125,9 @@ bot.on('callback_query', async ctx => {
                             ],
                             [
                                 {text: 'Традиционные праздники', callback_data: 'traditional_holidays'},
+                            ],
+                            [
+                                {text: 'Назад', callback_data: 'menu_info'}
                             ]
                         ],
                         resize_keyboard: true
