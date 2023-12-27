@@ -8,9 +8,7 @@ const {startKeyboard, dosugKeyboard, infoKeyboard,
         foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard
 } = require('./data/inlineKeyboards')
 
-const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
-
-const bot = new TelegramBot(TOKEN, {
+const bot = new TelegramBot(process.env.API_KEY, {
     polling: {
         interval: 300,
         autoStart: true
