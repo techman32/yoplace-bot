@@ -18,6 +18,9 @@ const dosugKeyboard = {
             [
                 { text: 'Культурный отдых', callback_data: 'culture_chill' },
                 { text: 'Развлечения', callback_data: 'entertainment' }
+            ],
+            [
+                {text: '❌ Закрыть меню', callback_data: 'close_menu'}
             ]
         ]
     }

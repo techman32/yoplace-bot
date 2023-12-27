@@ -1,11 +1,14 @@
 const fs = require('fs')
 const path = require('path')
 const TelegramBot = require('node-telegram-bot-api')
-const {hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo,
-        museumsInfo, theatersInfo, parksInfo, sightsInfo,
-        questsInfo, barsInfo, loungebarsInfo, cinemasInfo} = require('./data/typesInfo')
-const {startKeyboard, dosugKeyboard, infoKeyboard,
-        foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard
+const {
+    hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo,
+    museumsInfo, theatersInfo, parksInfo, sightsInfo,
+    questsInfo, barsInfo, loungebarsInfo, cinemasInfo
+} = require('./data/typesInfo')
+const {
+    startKeyboard, dosugKeyboard, infoKeyboard,
+    foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard
 } = require('./data/inlineKeyboards')
 
 const bot = new TelegramBot(process.env.API_KEY, {
@@ -21,7 +24,8 @@ function readJsonFile(filePath) {
     return JSON.parse(fileContent)
 }
 
-const {cafes, restaurants, hotels, hostels, museums, theaters,
+const {
+    cafes, restaurants, hotels, hostels, museums, theaters,
     parks, sights, quests, bars, loungebars, cinemas
 } = Object.fromEntries(
     ['cafes', 'restaurants', 'hotels', 'hostels', 'museums', 'theaters', 'parks', 'sights', 'quests', 'bars', 'loungebars', 'cinemas']
@@ -36,7 +40,7 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
         parse_mode: 'HTML',
         reply_markup: {
             inline_keyboard: [
-                [{ text: card.buttonText, callback_data: cardType }]
+                [{text: card.buttonText, callback_data: cardType}]
             ],
             resize_keyboard: true
         }
@@ -45,8 +49,8 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
 
 async function setOptions(ctx, message, data, backButtonCallback) {
     await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-    const inlineKeyboard = data.map(c => [{ text: c.name, callback_data: c.id }])
-    inlineKeyboard.push([{ text: '⬅️ Назад', callback_data: backButtonCallback }])
+    const inlineKeyboard = data.map(c => [{text: c.name, callback_data: c.id}])
+    inlineKeyboard.push([{text: '⬅️ Назад', callback_data: backButtonCallback}])
     await bot.sendMessage(ctx.message.chat.id, message, {
         reply_markup: {
             inline_keyboard: inlineKeyboard,
@@ -63,8 +67,10 @@ bot.on('text', async msg => {
         } else if (msg.text === '/menu') {
             await bot.sendMessage(msg.chat.id, 'Меню', startKeyboard)
         } else if (msg.text === '🧘🏼‍ Досуг') {
+            await bot.deleteMessage(msg.chat.id, msg.message_id)
             await bot.sendMessage(msg.chat.id, '🧘🏼‍ Досуг', dosugKeyboard)
         } else if (msg.text === '🏙 Информация о городе') {
+            await bot.deleteMessage(msg.chat.id, msg.message_id)
             await bot.sendMessage(msg.chat.id, '🏙 Информация о городе', infoKeyboard)
         } else {
             await bot.sendMessage(msg.chat.id, msg.text)
@@ -175,6 +181,9 @@ bot.on('callback_query', async ctx => {
             case 'traditional_holidays':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать традиционные праздники')
+                break
+            case 'close_menu':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
                 break
 
             case 'shkaf':
