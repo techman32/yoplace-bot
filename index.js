@@ -279,10 +279,10 @@ bot.on('callback_query', async ctx => {
 function getDescription(id, data) {
     const item = data.find(c => c.id === id)
     return (
-        `\n<strong>«${item.name}»</strong>\n` +
+        `\n<strong>«${item.name}»</strong>\n\n` +
         (item.address ? `📍 <u>Адрес:</u> ${item.address}\n` : '') +
         (item.rating ? `⭐️ <u>Рейтинг:</u> ${item.rating}\n` : '') +
         (item.timetable ? `⏰ <u>График работы:</u>\n${item.timetable}\n` : '') +
-        (item.geoPosition ? `Я.Карты: <a href="${item.geoPosition}">посмотреть</a>` : '')
+        (item.geoPosition ? `\nЯ.Карты: <a href="${item.geoPosition}">посмотреть</a>` : '')
     )
 }
