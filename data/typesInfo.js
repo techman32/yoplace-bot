@@ -164,4 +164,32 @@ const parksInfo = {
     }
 }
 
-module.exports = {hotelsInfo, restaurantsInfo, cafesInfo, hostelsInfo, museumsInfo, theatersInfo, parksInfo}
+const sightsInfo = {
+    'yokot': {
+        id: 'yokot',
+        image: 'yokot.webp',
+        buttonText: 'Назад'
+    },
+    'twelve': {
+        id: 'twelve',
+        image: 'twelve.webp',
+        buttonText: 'Назад'
+    },
+    'blagoSobor': {
+        id: 'blagoSobor',
+        image: 'blagoSobor.jpg',
+        buttonText: 'Назад'
+    },
+    'spASSTower': {
+        id: 'spASSTower',
+        image: 'spASSTower.webp',
+        buttonText: 'Назад'
+    },
+    'korepovy': {
+        id: 'korepovy',
+        image: 'korepovy.webp',
+        buttonText: 'Назад'
+    }
+}
+
+module.exports = {hotelsInfo, restaurantsInfo, cafesInfo, hostelsInfo, museumsInfo, theatersInfo, parksInfo, sightsInfo}

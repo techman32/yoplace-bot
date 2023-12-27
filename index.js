@@ -9,6 +9,7 @@ const {
         museumsInfo,
         theatersInfo,
         parksInfo,
+        sightsInfo,
       } = require('./data/typesInfo')
 const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
 
@@ -32,6 +33,7 @@ const hostels = readJsonFile('hostelsData.json')
 const museums = readJsonFile('museumsData.json')
 const theaters = readJsonFile('theatersData.json')
 const parks = readJsonFile('parksData.json')
+const sights = readJsonFile('sightsData.json')
 
 async function updateCards(ctx, cardType, cardsInfo, cardArray) {
     const card = cardsInfo[ctx.data]
@@ -133,6 +135,19 @@ bot.on('callback_query', async ctx => {
                                 { text: 'Культурный отдых', callback_data: 'culture_chill' },
                                 { text: 'Развлечения', callback_data: 'entertainment' }
                             ],
+                        ]
+                    }
+                })
+                break
+            case 'menu_info':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendMessage(msg.chat.id, '🏙 Информация о городе', {
+                    reply_markup: {
+                        inline_keyboard: [
+                            [
+                                {text: 'История города', callback_data: 'history'},
+                                {text: 'Культура', callback_data: 'culture'}
+                            ]
                         ]
                     }
                 })
@@ -246,6 +261,7 @@ bot.on('callback_query', async ctx => {
             case 'hostels':
                 await setOptions(ctx, 'Выберите гостиницу', hostels, 'checkin')
                 break
+
             case 'museums':
                 await setOptions(ctx, 'Выберите музей', museums, 'culture_chill')
                 break
@@ -256,9 +272,9 @@ bot.on('callback_query', async ctx => {
                 await setOptions(ctx, 'Выберите парк', parks, 'culture_chill')
                 break
             case 'sights':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать достопримечательности')
+                await setOptions(ctx, 'Выберите достопримечательность', sights, 'culture_chill')
                 break
+
             case 'quests':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать квесты')
@@ -275,6 +291,7 @@ bot.on('callback_query', async ctx => {
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать кинотеатры')
                 break
+
             case 'interesting_individuals':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать интересных личностей')
@@ -340,6 +357,14 @@ bot.on('callback_query', async ctx => {
             case 'sosni':
                 await updateCards(ctx, 'parks', parksInfo, parks)
                 break
+
+            //sights
+            case 'yokot':
+            case 'twelve':
+            case 'blagoSobor':
+            case 'spASSTower':
+            case 'korepovy':
+                await updateCards(ctx, 'sights', sightsInfo, sights)
         }
     } catch (error) {
         console.log(error)
