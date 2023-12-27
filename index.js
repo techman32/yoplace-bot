@@ -50,7 +50,7 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
 }
 
 async function updateCulture(ctx, url, callBack) {
-    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
     await bot.sendMessage(ctx.message.chat.id, url, {
         reply_markup: {
             inline_keyboard: [
@@ -59,7 +59,7 @@ async function updateCulture(ctx, url, callBack) {
                 ]
             ]
         }
-    });
+    })
 }
 
 async function setOptions(ctx, message, data, backButtonCallback) {
@@ -179,13 +179,13 @@ bot.on('callback_query', async ctx => {
                 await bot.sendMessage(ctx.message.chat.id, 'Выберите человека', individualsKeyboard)
                 break
             case 'eshpay':
-                await updateCulture(ctx, 'https://telegra.ph/YAkov-Andreevich-EHshpaj-12-26', 'interesting_individuals');
+                await updateCulture(ctx, 'https://telegra.ph/YAkov-Andreevich-EHshpaj-12-26', 'interesting_individuals')
                 break
             case 'eshkinin':
-                await updateCulture(ctx, 'https://telegra.ph/Andrej-Karpovich-EHshkinin-12-26', 'interesting_individuals');
+                await updateCulture(ctx, 'https://telegra.ph/Andrej-Karpovich-EHshkinin-12-26', 'interesting_individuals')
                 break
             case 'dmitriev':
-                await updateCulture(ctx, 'https://telegra.ph/YUrij-YAkovlevich-Dmitriev-12-26', 'interesting_individuals');
+                await updateCulture(ctx, 'https://telegra.ph/YUrij-YAkovlevich-Dmitriev-12-26', 'interesting_individuals')
                 break
 
             case 'traditional_holidays':
@@ -194,23 +194,23 @@ bot.on('callback_query', async ctx => {
                 break
 
             case 'upuchimish':
-                await updateCulture(ctx, 'https://telegra.ph/U-puchymysh-Prazdnik-novoj-kashi-12-27', 'traditional_holidays');
+                await updateCulture(ctx, 'https://telegra.ph/U-puchymysh-Prazdnik-novoj-kashi-12-27', 'traditional_holidays')
                 break
             case 'kugeche':
-                await updateCulture(ctx, 'https://telegra.ph/U-puchymysh-Prazdnik-novoj-kashi-12-27', 'traditional_holidays');
+                await updateCulture(ctx, 'https://telegra.ph/U-puchymysh-Prazdnik-novoj-kashi-12-27', 'traditional_holidays')
                 break
             case 'uginde':
-                await updateCulture(ctx, 'https://telegra.ph/Uginde-Prazdnik-novogo-hleba-12-27', 'traditional_holidays');
+                await updateCulture(ctx, 'https://telegra.ph/Uginde-Prazdnik-novogo-hleba-12-27', 'traditional_holidays')
                 break
             case 'portsii':
-                await updateCulture(ctx, 'https://telegra.ph/P%D3%A7rtsij-novosele-12-27', 'traditional_holidays');
+                await updateCulture(ctx, 'https://telegra.ph/P%D3%A7rtsij-novosele-12-27', 'traditional_holidays')
                 break
             case 'surem':
-                await updateCulture(ctx, 'https://telegra.ph/S%D3%B1rem-Prazdnik-letnego-zhertvoprinosheniya-12-27', 'traditional_holidays');
+                await updateCulture(ctx, 'https://telegra.ph/S%D3%B1rem-Prazdnik-letnego-zhertvoprinosheniya-12-27', 'traditional_holidays')
                 break
 
             case 'close_menu':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 break
 
             case 'shkaf':
