@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const TelegramBot = require('node-telegram-bot-api');
+const fs = require('fs')
+const path = require('path')
+const TelegramBot = require('node-telegram-bot-api')
 const {
         hotelsInfo,
         hostelsInfo,
@@ -8,8 +8,8 @@ const {
         cafesInfo,
         museumsInfo,
         theatersInfo,
-
-      } = require('./data/typesInfo');
+        parksInfo,
+      } = require('./data/typesInfo')
 const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
 
 const bot = new TelegramBot(TOKEN, {
@@ -20,9 +20,9 @@ const bot = new TelegramBot(TOKEN, {
 })
 
 function readJsonFile(filePath) {
-    const absolutePath = path.resolve(__dirname, 'data', filePath);
-    const fileContent = fs.readFileSync(absolutePath, 'utf8');
-    return JSON.parse(fileContent);
+    const absolutePath = path.resolve(__dirname, 'data', filePath)
+    const fileContent = fs.readFileSync(absolutePath, 'utf8')
+    return JSON.parse(fileContent)
 }
 
 const cafes = readJsonFile('cafesData.json')
@@ -31,10 +31,11 @@ const hotels = readJsonFile('hotelsData.json')
 const hostels = readJsonFile('hostelsData.json')
 const museums = readJsonFile('museumsData.json')
 const theaters = readJsonFile('theatersData.json')
+const parks = readJsonFile('parksData.json')
 
 async function updateCards(ctx, cardType, cardsInfo, cardArray) {
     const card = cardsInfo[ctx.data]
-    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
     await bot.sendPhoto(ctx.message.chat.id, `./images/${cardType}/${card.image}`, {
         caption: getDescription(card.id, cardArray.filter(c => c.id === card.id)),
         parse_mode: 'HTML',
@@ -46,6 +47,19 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
         }
     })
 }
+
+async function setOptions(ctx, message, data, backButtonCallback) {
+    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+    const inlineKeyboard = data.map(c => [{ text: c.name, callback_data: c.id }])
+    inlineKeyboard.push([{ text: 'Назад', callback_data: backButtonCallback }])
+    await bot.sendMessage(ctx.message.chat.id, message, {
+        reply_markup: {
+            inline_keyboard: inlineKeyboard,
+            resize_keyboard: true
+        }
+    })
+}
+
 
 bot.on('text', async msg => {
     try {
@@ -80,7 +94,7 @@ bot.on('text', async msg => {
                         [
                             {text: 'Культурный отдых', callback_data: 'culture_chill'},
                             {text: 'Развлечения', callback_data: 'entertainment'}
-                        ],
+                        ]
                     ]
                 }
             })
@@ -96,7 +110,7 @@ bot.on('text', async msg => {
                 }
             })
         } else {
-            await bot.sendMessage(msg.chat.id, msg.text);
+            await bot.sendMessage(msg.chat.id, msg.text)
         }
     } catch (error) {
         console.log(error)
@@ -106,6 +120,23 @@ bot.on('text', async msg => {
 bot.on('callback_query', async ctx => {
     try {
         switch (ctx.data) {
+            case 'menu_dosug':
+                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+                await bot.sendMessage(ctx.message.chat.id, '🧘🏼‍ Досуг', {
+                    reply_markup: {
+                        inline_keyboard: [
+                            [
+                                { text: 'Где поесть', callback_data: 'food' },
+                                { text: 'Где заселиться', callback_data: 'checkin' }
+                            ],
+                            [
+                                { text: 'Культурный отдых', callback_data: 'culture_chill' },
+                                { text: 'Развлечения', callback_data: 'entertainment' }
+                            ],
+                        ]
+                    }
+                })
+                break
             case 'food':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите покушать', {
@@ -115,11 +146,14 @@ bot.on('callback_query', async ctx => {
                                 {text: 'Кафе', callback_data: 'cafes'},
                                 {text: 'Рестораны', callback_data: 'restaurants'}
                             ],
+                            [
+                                {text: 'Назад', callback_data: 'menu_dosug'}
+                            ]
                         ],
                         resize_keyboard: true
                     }
                 })
-                break;
+                break
             case 'checkin':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите заселиться', {
@@ -129,6 +163,9 @@ bot.on('callback_query', async ctx => {
                                 {text: 'Отели', callback_data: 'hotels'},
                                 {text: 'Гостиницы', callback_data: 'hostels'}
                             ],
+                            [
+                                {text: 'Назад', callback_data: 'menu_dosug'}
+                            ]
                         ],
                         resize_keyboard: true
                     }
@@ -146,6 +183,9 @@ bot.on('callback_query', async ctx => {
                             ],
                             [
                                 {text: 'Достопримечательности', callback_data: 'sights'}
+                            ],
+                            [
+                                {text: 'Назад', callback_data: 'menu_dosug'}
                             ]
                         ],
                         resize_keyboard: true
@@ -164,6 +204,9 @@ bot.on('callback_query', async ctx => {
                             [
                                 {text: 'Лаунж бары', callback_data: 'loungebars'},
                                 {text: 'Кинотеатры', callback_data: 'cinema'}
+                            ],
+                            [
+                                {text: 'Назад', callback_data: 'menu_dosug'}
                             ]
                         ],
                         resize_keyboard: true
@@ -190,75 +233,27 @@ bot.on('callback_query', async ctx => {
                     }
                 })
                 break
+
             case 'cafes':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите кафе', {
-                    reply_markup: {
-                        inline_keyboard: cafes.map(c => [{
-                            text: c.name, callback_data: c.id
-                        }]),
-                        resize_keyboard: true
-                    }
-                })
+                await setOptions(ctx, 'Выберите кафе', cafes, 'food')
                 break
             case 'restaurants':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите ресторан', {
-                    reply_markup: {
-                        inline_keyboard: restaurants.map(c => [{
-                            text: c.name, callback_data: c.id
-                        }]),
-                        resize_keyboard: true
-                    }
-                })
+                await setOptions(ctx, 'Выберите ресторан', restaurants, 'food')
                 break
             case 'hotels':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите отель', {
-                    reply_markup: {
-                        inline_keyboard: hotels.map(c => [{
-                            text: c.name, callback_data: c.id
-                        }]),
-                        resize_keyboard: true
-                    }
-                })
+                await setOptions(ctx, 'Выберите отель', hotels, 'checkin')
                 break
             case 'hostels':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите гостиницу', {
-                    reply_markup: {
-                        inline_keyboard: hostels.map(c => [{
-                            text: c.name, callback_data: c.id
-                        }]),
-                        resize_keyboard: true
-                    }
-                })
+                await setOptions(ctx, 'Выберите гостиницу', hostels, 'checkin')
                 break
             case 'museums':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите музей', {
-                    reply_markup: {
-                        inline_keyboard: museums.map(c => [{
-                            text: c.name, callback_data: c.id
-                        }]),
-                        resize_keyboard: true
-                    }
-                })
+                await setOptions(ctx, 'Выберите музей', museums, 'culture_chill')
                 break
             case 'theaters':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите театр', {
-                    reply_markup: {
-                        inline_keyboard: theaters.map(c => [{
-                            text: c.name, callback_data: c.id
-                        }]),
-                        resize_keyboard: true
-                    }
-                })
+                await setOptions(ctx, 'Выберите театр', theaters, 'culture_chill')
                 break
             case 'parks':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать парки')
+                await setOptions(ctx, 'Выберите парк', parks, 'culture_chill')
                 break
             case 'sights':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
@@ -309,7 +304,7 @@ bot.on('callback_query', async ctx => {
             case 'amaksCityHotel':
             case 'revizor':
             case 'nikitin':
-                await updateCards(ctx, 'hotels', hotelsInfo, hotels);
+                await updateCards(ctx, 'hotels', hotelsInfo, hotels)
                 break
 
             //hostels
@@ -336,13 +331,28 @@ bot.on('callback_query', async ctx => {
             case 'konstantinov':
                 await updateCards(ctx, 'theaters', theatersInfo, theaters)
                 break
+
+            //parks
+            case 'centr':
+            case 'pobeda':
+            case 'mnogolet':
+            case 'sunday':
+            case 'sosni':
+                await updateCards(ctx, 'parks', parksInfo, parks)
+                break
         }
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
 })
 
 function getDescription(id, data) {
     const item = data.find(c => c.id === id)
-    return `\n<strong>«${item.name}»</strong>\n\n📍 <u>Адрес:</u> ${item.address}\n⭐️ <u>Рейтинг:</u> ${item.rating}\n⏰ <u>График работы:</u>\n${item.timetable}\n\nЯ.Карты: <a href="${item.geoPosition}">посмотреть</a>`
+    return (
+        `\n<strong>«${item.name}»</strong>\n` +
+        (item.address ? `📍 <u>Адрес:</u> ${item.address}\n` : '') +
+        (item.rating ? `⭐️ <u>Рейтинг:</u> ${item.rating}\n` : '') +
+        (item.timetable ? `⏰ <u>График работы:</u>\n${item.timetable}\n` : '') +
+        (item.geoPosition ? `Я.Карты: <a href="${item.geoPosition}">посмотреть</a>` : '')
+    )
 }

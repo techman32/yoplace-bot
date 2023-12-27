@@ -136,4 +136,32 @@ const theatersInfo = {
     }
 }
 
-module.exports = {hotelsInfo, restaurantsInfo, cafesInfo, hostelsInfo, museumsInfo, theatersInfo}
+const parksInfo = {
+    'centr': {
+        id: 'centr',
+        image: 'centr.jpg',
+        buttonText: 'Назад'
+    },
+    'pobeda': {
+        id: 'pobeda',
+        image: 'pobeda.jpg',
+        buttonText: 'Назад'
+    },
+    'mnogolet': {
+        id: 'mnogolet',
+        image: 'mnogolet.jpg',
+        buttonText: 'Назад'
+    },
+    'sunday': {
+        id: 'sunday',
+        image: 'sunday.jpg',
+        buttonText: 'Назад'
+    },
+    'sosni': {
+        id: 'sosni',
+        image: 'sosni.jpg',
+        buttonText: 'Назад'
+    }
+}
+
+module.exports = {hotelsInfo, restaurantsInfo, cafesInfo, hostelsInfo, museumsInfo, theatersInfo, parksInfo}
