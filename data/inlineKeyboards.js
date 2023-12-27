@@ -32,6 +32,9 @@ const infoKeyboard = {
             [
                 { text: 'История города', callback_data: 'history' },
                 { text: 'Культура', callback_data: 'culture' }
+            ],
+            [
+                {text: '❌ Закрыть меню', callback_data: 'close_menu'}
             ]
         ]
     }
@@ -111,4 +114,33 @@ const historyKeyboard = {
     }
 }
 
-module.exports = {startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard}
+const individualsKeyboard = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {text: 'Яков Андреевич Эшпай', callback_data: 'eshpay'},
+            ],
+            [
+                {text: 'Андрей Карпович Эшкинин', callback_data: 'eshkinin'},
+            ],
+            [
+                {text: 'Юрий Яковлевич Дмитриев', callback_data: 'dmitriev'},
+            ],
+            [
+                {text: '⬅️ Назад', callback_data: 'culture'}
+            ]
+        ]
+    }
+}
+
+const individualsBackKeyboard = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {text: '⬅️ Назад', callback_data: 'interesting_individuals'}
+            ]
+        ]
+    }
+}
+
+module.exports = {startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard, individualsKeyboard, individualsBackKeyboard}

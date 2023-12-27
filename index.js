@@ -8,7 +8,8 @@ const {
 } = require('./data/typesInfo')
 const {
     startKeyboard, dosugKeyboard, infoKeyboard,
-    foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard
+    foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard, individualsKeyboard,
+    individualsBackKeyboard
 } = require('./data/inlineKeyboards')
 
 const bot = new TelegramBot(process.env.API_KEY, {
@@ -45,6 +46,11 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
             resize_keyboard: true
         }
     })
+}
+
+async function updatePersons(ctx, url) {
+    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
+    await bot.sendMessage(ctx.message.chat.id, url, individualsBackKeyboard);
 }
 
 async function setOptions(ctx, message, data, backButtonCallback) {
@@ -176,12 +182,23 @@ bot.on('callback_query', async ctx => {
 
             case 'interesting_individuals':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать интересных личностей')
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите человека', individualsKeyboard)
                 break
+            case 'eshpay':
+                await updatePersons(ctx, 'https://telegra.ph/YAkov-Andreevich-EHshpaj-12-26');
+                break
+            case 'eshkinin':
+                await updatePersons(ctx, 'https://telegra.ph/Andrej-Karpovich-EHshkinin-12-26');
+                break
+            case 'dmitriev':
+                await updatePersons(ctx, 'https://telegra.ph/YUrij-YAkovlevich-Dmitriev-12-26');
+                break
+
             case 'traditional_holidays':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Показать традиционные праздники')
                 break
+
             case 'close_menu':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id);
                 break
