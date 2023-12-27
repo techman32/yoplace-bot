@@ -42,7 +42,7 @@ const foodKeyboard = {
                 {text: 'Рестораны', callback_data: 'restaurants'}
             ],
             [
-                {text: 'Назад', callback_data: 'menu_dosug'}
+                {text: '⬅️ Назад', callback_data: 'menu_dosug'}
             ]
         ]
     }
@@ -56,7 +56,7 @@ const checkinKeyboard = {
                 {text: 'Гостиницы', callback_data: 'hostels'}
             ],
             [
-                {text: 'Назад', callback_data: 'menu_dosug'}
+                {text: '⬅️ Назад', callback_data: 'menu_dosug'}
             ]
         ]
     }
@@ -74,7 +74,7 @@ const cultureChillKeyboard = {
                 {text: 'Достопримечательности', callback_data: 'sights'}
             ],
             [
-                {text: 'Назад', callback_data: 'menu_dosug'}
+                {text: '⬅️ Назад', callback_data: 'menu_dosug'}
             ]
         ]
     }
@@ -92,7 +92,7 @@ const entertainmentKeyboard = {
                 {text: 'Кинотеатры', callback_data: 'cinemas'}
             ],
             [
-                {text: 'Назад', callback_data: 'menu_dosug'}
+                {text: '⬅️ Назад', callback_data: 'menu_dosug'}
             ]
         ]
     }
@@ -102,7 +102,7 @@ const historyKeyboard = {
     reply_markup: {
         inline_keyboard: [
             [
-                { text: 'Назад', callback_data: 'menu_info' }
+                { text: '⬅️ Назад', callback_data: 'menu_info' }
             ]
         ]
     }

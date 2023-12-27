@@ -1,4 +1,4 @@
-const buttonText = 'Назад'
+const buttonText = '⬅️ Назад'
 
 const hotelsInfo = {
     'firstTrain': {

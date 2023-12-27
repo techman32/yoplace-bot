@@ -46,7 +46,7 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
 async function setOptions(ctx, message, data, backButtonCallback) {
     await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
     const inlineKeyboard = data.map(c => [{ text: c.name, callback_data: c.id }])
-    inlineKeyboard.push([{ text: 'Назад', callback_data: backButtonCallback }])
+    inlineKeyboard.push([{ text: '⬅️ Назад', callback_data: backButtonCallback }])
     await bot.sendMessage(ctx.message.chat.id, message, {
         reply_markup: {
             inline_keyboard: inlineKeyboard,
@@ -120,7 +120,7 @@ bot.on('callback_query', async ctx => {
                                 {text: 'Традиционные праздники', callback_data: 'traditional_holidays'},
                             ],
                             [
-                                {text: 'Назад', callback_data: 'menu_info'}
+                                {text: '⬅️ Назад', callback_data: 'menu_info'}
                             ]
                         ],
                         resize_keyboard: true
