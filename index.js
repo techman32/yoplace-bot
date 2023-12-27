@@ -10,6 +10,10 @@ const {
         theatersInfo,
         parksInfo,
         sightsInfo,
+        questsInfo,
+        barsInfo,
+        loungebarsInfo,
+        cinemasInfo
       } = require('./data/typesInfo')
 const TOKEN = '6258476561:AAG7aPEaNztlrEmxDaPTsb8xO_l8oQKlF_Q'
 
@@ -34,6 +38,10 @@ const museums = readJsonFile('museumsData.json')
 const theaters = readJsonFile('theatersData.json')
 const parks = readJsonFile('parksData.json')
 const sights = readJsonFile('sightsData.json')
+const quests = readJsonFile('questsData.json')
+const bars = readJsonFile('barsData.json')
+const loungebars = readJsonFile('loungebarsData.json')
+const cinemas = readJsonFile('cinemasData.json')
 
 async function updateCards(ctx, cardType, cardsInfo, cardArray) {
     const card = cardsInfo[ctx.data]
@@ -152,6 +160,7 @@ bot.on('callback_query', async ctx => {
                     }
                 })
                 break
+
             case 'food':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
                 await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите покушать', {
@@ -218,7 +227,7 @@ bot.on('callback_query', async ctx => {
                             ],
                             [
                                 {text: 'Лаунж бары', callback_data: 'loungebars'},
-                                {text: 'Кинотеатры', callback_data: 'cinema'}
+                                {text: 'Кинотеатры', callback_data: 'cinemas'}
                             ],
                             [
                                 {text: 'Назад', callback_data: 'menu_dosug'}
@@ -255,6 +264,7 @@ bot.on('callback_query', async ctx => {
             case 'restaurants':
                 await setOptions(ctx, 'Выберите ресторан', restaurants, 'food')
                 break
+
             case 'hotels':
                 await setOptions(ctx, 'Выберите отель', hotels, 'checkin')
                 break
@@ -276,20 +286,16 @@ bot.on('callback_query', async ctx => {
                 break
 
             case 'quests':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать квесты')
+                await setOptions(ctx, 'Выберите квест', quests, 'entertainment')
                 break
             case 'bars':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать бары')
+                await setOptions(ctx, 'Выберите бар', bars, 'entertainment')
                 break
             case 'loungebars':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать лаунж бары')
+                await setOptions(ctx, 'Выберите лаундж бар', loungebars, 'entertainment')
                 break
-            case 'cinema':
-                await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Показать кинотеатры')
+            case 'cinemas':
+                await setOptions(ctx, 'Выберите кинотеатр', cinemas, 'entertainment')
                 break
 
             case 'interesting_individuals':
@@ -301,7 +307,6 @@ bot.on('callback_query', async ctx => {
                 await bot.sendMessage(ctx.message.chat.id, 'Показать традиционные праздники')
                 break
 
-            //cafes
             case 'shkaf':
             case 'sangrita':
             case 'frendi':
@@ -309,14 +314,12 @@ bot.on('callback_query', async ctx => {
                 await updateCards(ctx, 'cafes', cafesInfo, cafes)
                 break
 
-            //restaurants
             case 'monTresor':
             case 'gosti':
             case 'mullerHall':
                 await updateCards(ctx, 'restaurants', restaurantsInfo, restaurants)
                 break
 
-            //hotels
             case 'firstTrain':
             case 'amaksCityHotel':
             case 'revizor':
@@ -324,7 +327,6 @@ bot.on('callback_query', async ctx => {
                 await updateCards(ctx, 'hotels', hotelsInfo, hotels)
                 break
 
-            //hostels
             case 'evrika':
             case 'virginia':
             case 'flatLuxe':
@@ -332,7 +334,6 @@ bot.on('callback_query', async ctx => {
                 await updateCards(ctx, 'hostels', hostelsInfo, hostels)
                 break
 
-            //museums
             case 'evseev':
             case 'nationalGallery':
             case 'republicGallery':
@@ -340,7 +341,6 @@ bot.on('callback_query', async ctx => {
                 await updateCards(ctx, 'museums', museumsInfo, museums)
                 break
 
-            //theaters
             case 'shketan':
             case 'junZritel':
             case 'sapaev':
@@ -349,7 +349,6 @@ bot.on('callback_query', async ctx => {
                 await updateCards(ctx, 'theaters', theatersInfo, theaters)
                 break
 
-            //parks
             case 'centr':
             case 'pobeda':
             case 'mnogolet':
@@ -358,13 +357,40 @@ bot.on('callback_query', async ctx => {
                 await updateCards(ctx, 'parks', parksInfo, parks)
                 break
 
-            //sights
             case 'yokot':
             case 'twelve':
             case 'blagoSobor':
             case 'spASSTower':
             case 'korepovy':
                 await updateCards(ctx, 'sights', sightsInfo, sights)
+                break
+
+            case 'vihod':
+            case 'molchanie':
+            case 'vinegret':
+                await updateCards(ctx, 'quests', questsInfo, quests)
+                break
+
+            case 'buldog':
+            case 'theFox':
+            case 'dublin':
+            case 'pivovar':
+            case 'chester':
+                await updateCards(ctx, 'bars', barsInfo, bars)
+                break
+
+            case 'hookah':
+            case 'oblaka':
+            case 'edison':
+            case 'fenomen':
+                await updateCards(ctx, 'loungebars', loungebarsInfo, loungebars)
+                break
+
+            case 'super':
+            case 'cinemaEl':
+            case 'oktyabr':
+                await updateCards(ctx, 'cinemas', cinemasInfo, cinemas)
+                break
         }
     } catch (error) {
         console.log(error)
