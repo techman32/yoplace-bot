@@ -3,6 +3,10 @@ const path = require('path')
 const TelegramBot = require('node-telegram-bot-api')
 
 const {
+    processWeatherData, getWeather, DayCondition, DayPartCondition
+} = require('./weather/weather')
+
+const {
     hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo,
     museumsInfo, theatersInfo, parksInfo, sightsInfo,
     questsInfo, barsInfo, loungebarsInfo, cinemasInfo
@@ -12,10 +16,11 @@ const {
     startKeyboard, dosugKeyboard, infoKeyboard,
     foodKeyboard, checkinKeyboard, cultureChillKeyboard,
     entertainmentKeyboard, historyKeyboard, individualsKeyboard,
-    cultureKeyboard, holidaysKeyboard
+    cultureKeyboard, holidaysKeyboard, weatherKeyboard
 } = require('./data/inlineKeyboards')
+const { start } = require('repl')
 
-const bot = new TelegramBot(process.env.API_KEY, {
+const bot = new TelegramBot(process.env.BOT_API_KEY, {
     polling: {
         interval: 300,
         autoStart: true
@@ -49,6 +54,37 @@ async function updateCards(ctx, cardType, cardsInfo, cardArray) {
             resize_keyboard: true
         }
     })
+}
+
+async function updateWeather(ctx, requestType) {
+    await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
+    
+    days = 1
+    if (requestType === 'weather3days') {
+        days = 3
+    }
+
+    weather = await getWeather(days);
+    days = processWeatherData(weather)
+
+    message = ''
+    days.forEach(day => {
+        periods = [
+            [day.p0.getAverage(), `УТРОМ`], 
+            [day.p1.getAverage(), `ДНЁМ`], 
+            [day.p2.getAverage(), `ВЕЧЕРОМ`], 
+            [day.p3.getAverage(), `НОЧЬЮ`],
+        ]
+
+        message += `${day.date}\n`
+        
+        periods.forEach(data => {
+            message += `${data[1]}:  ${data[0].conditions.join(', ')}\n`
+            message += `🌡️ ${data[0].temp_feels_like[0].toFixed(1)}°C; 💨 ${data[0].wind[0].toFixed(1)} м/с\n\n`
+        });
+    });
+
+    bot.sendMessage(ctx.message.chat.id, message, startKeyboard)
 }
 
 async function updateCulture(ctx, url, callBack) {
@@ -90,6 +126,9 @@ bot.on('text', async msg => {
         } else if (msg.text === '🏙 Информация о городе') {
             await bot.deleteMessage(msg.chat.id, msg.message_id)
             await bot.sendMessage(msg.chat.id, '🏙 Информация о городе', infoKeyboard)
+        } else if (msg.text === '🌤️ Погода') {
+            await bot.deleteMessage(msg.chat.id, msg.message_id)
+            await bot.sendMessage(msg.chat.id, '🌤️ Погода', weatherKeyboard)
         } else {
             await bot.sendMessage(msg.chat.id, msg.text)
         }
@@ -300,6 +339,10 @@ bot.on('callback_query', async ctx => {
             case 'oktyabr':
                 await updateCards(ctx, 'cinemas', cinemasInfo, cinemas)
                 break
+            
+            case 'weather3days':
+            case 'weatherCurrent':
+                await updateWeather(ctx, ctx.data)
         }
     } catch (error) {
         console.log(error)

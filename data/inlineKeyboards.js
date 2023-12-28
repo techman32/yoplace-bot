@@ -2,7 +2,8 @@ const startKeyboard = {
     reply_markup: {
         keyboard: [
             ['🧘🏼‍ Досуг'],
-            ['🏙 Информация о городе']
+            ['🏙 Информация о городе'],
+            ['🌤️ Погода']
         ],
         resize_keyboard: true
     }
@@ -175,4 +176,22 @@ const holidaysKeyboard = {
     }
 }
 
-module.exports = {startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard, individualsKeyboard, cultureKeyboard, holidaysKeyboard}
+const weatherKeyboard = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {text: 'Погода на 3 дня', callback_data: 'weather3days'}
+            ],
+            [
+                {text: 'Погода сегодня', callback_data: 'weatherCurrent'}
+            ]
+        ]
+    }
+}
+
+module.exports = {
+    startKeyboard, dosugKeyboard, infoKeyboard, foodKeyboard, 
+    checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, 
+    historyKeyboard, individualsKeyboard, cultureKeyboard, 
+    holidaysKeyboard, weatherKeyboard
+}
