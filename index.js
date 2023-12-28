@@ -1,11 +1,13 @@
 const fs = require('fs')
 const path = require('path')
 const TelegramBot = require('node-telegram-bot-api')
+
 const {
     hotelsInfo, hostelsInfo, restaurantsInfo, cafesInfo,
     museumsInfo, theatersInfo, parksInfo, sightsInfo,
     questsInfo, barsInfo, loungebarsInfo, cinemasInfo
 } = require('./data/typesInfo')
+
 const {
     startKeyboard, dosugKeyboard, infoKeyboard,
     foodKeyboard, checkinKeyboard, cultureChillKeyboard, entertainmentKeyboard, historyKeyboard
@@ -61,6 +63,7 @@ async function setOptions(ctx, message, data, backButtonCallback) {
 
 
 bot.on('text', async msg => {
+    console.log(msg)
     try {
         if (msg.text === '/start') {
             await bot.sendMessage(msg.chat.id, 'Выберите, что ищем', startKeyboard)
