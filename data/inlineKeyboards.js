@@ -20,7 +20,7 @@ const dosugKeyboard = {
                 { text: 'Развлечения', callback_data: 'entertainment' }
             ],
             [
-                {text: '❌ Закрыть меню', callback_data: 'close_menu'}
+                {text: 'Закрыть меню', callback_data: 'close_menu'}
             ]
         ]
     }
@@ -34,7 +34,7 @@ const infoKeyboard = {
                 { text: 'Культура', callback_data: 'culture' }
             ],
             [
-                {text: '❌ Закрыть меню', callback_data: 'close_menu'}
+                {text: 'Закрыть меню', callback_data: 'close_menu'}
             ]
         ]
     }
