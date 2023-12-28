@@ -4,7 +4,7 @@
     "name": "HookahPlace",
     "rating": "4.7/5.0",
     "address": "бульвар Чавайна, 36",
-    "geoPosition": "56.635590, 47.896372",
+    "geoPosition": "https://yandex.ru/maps/org/1708373737",
     "timetable": "Пн-Чт: 12:00 - 01:00\nПт-Сб: 12:00 - 02:00\nВс: 12:00 - 01:00"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Oblaka Lounge",
     "rating": "4.9/5.0",
     "address": "проспект Гагарина, 9",
-    "geoPosition": "56.628159, 47.887976",
+    "geoPosition": "https://yandex.ru/maps/org/1317718616",
     "timetable": "Пн-Сб: 12:00 - 02:00\nВс: 12:00 - 20:00"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Эдисон",
     "rating": "4.3/5.0",
     "address": "Эшкинина, 10Г",
-    "geoPosition": "56.630453, 47.906651",
+    "geoPosition": "https://yandex.ru/maps/org/72114395226",
     "timetable": "Пн-Чт: 11:00 - 02:00\nПт-Сб: 11:00 - 04:00\nВс: 11:00 - 02:00"
   },
   {
@@ -28,7 +28,7 @@
     "name": "Fenomen True Cost",
     "rating": "4.4/5.0",
     "address": "Кремлёвская, 31Б",
-    "geoPosition": "56.640561, 47.883509",
+    "geoPosition": "https://yandex.ru/maps/org/66137250415",
     "timetable": "Пн-Чт: 14:00 - 01:00\nПт-Сб: 14:00 - 02:00\nВс: 14:00 - 01:00"
   }
 ]

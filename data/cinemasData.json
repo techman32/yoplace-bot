@@ -4,7 +4,7 @@
     "name": "Super 8",
     "rating": "4.4/5.0",
     "address": "Кирова, 6",
-    "geoPosition": "56.628546, 47.930074",
+    "geoPosition": "https://yandex.ru/maps/org/1377577456",
     "timetable": "Ежедневно 08:00 - 03:00"
   },
   {
@@ -12,7 +12,7 @@
     "name": "Синема Эл",
     "rating": "4.3/5.0",
     "address": "Йывана Кырли, 25",
-    "geoPosition": "56.641968, 47.833281",
+    "geoPosition": "https://yandex.ru/maps/org/49896646063",
     "timetable": "Ежедневно 10:00 - 01:00"
   },
   {
@@ -20,7 +20,7 @@
     "name": "Октябрь",
     "rating": "4.3/5.0",
     "address": "Кремлёвская, 21",
-    "geoPosition": "56.638511, 47.891640",
+    "geoPosition": "https://yandex.ru/maps/org/193388923067",
     "timetable": "Ежедневно 09:00 - 01:00"
   }
 ]
