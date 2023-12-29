@@ -155,7 +155,7 @@ bot.on('callback_query', async ctx => {
                 break
             case 'checkin':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)
-                await bot.sendMessage(ctx.message.chat.id, 'Выберите, где хотите заселиться', checkinKeyboard)
+                await bot.sendMessage(ctx.message.chat.id, 'Выберите, куда хотите заселиться', checkinKeyboard)
                 break
             case 'culture_chill':
                 await bot.deleteMessage(ctx.message.chat.id, ctx.message.message_id)

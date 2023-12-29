@@ -14,7 +14,7 @@ const dosugKeyboard = {
         inline_keyboard: [
             [
                 { text: 'Где поесть', callback_data: 'food' },
-                { text: 'Где заселиться', callback_data: 'checkin' }
+                { text: 'Куда заселиться', callback_data: 'checkin' }
             ],
             [
                 { text: 'Культурный отдых', callback_data: 'culture_chill' },
